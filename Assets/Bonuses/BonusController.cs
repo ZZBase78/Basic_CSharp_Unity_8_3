@@ -16,9 +16,11 @@ namespace ZZBase.Maze
         private List<BonusMatch> bonusList;
         private IBonusObserver bonusObserver;
         private GameObject bonusParent;
+        private MazeSettings mazeSettings;
         
         public BonusController(IBonusObserver bonusObserver)
         {
+            mazeSettings = new MazeSettings();
             maxBonusCount = 10;
             bonusPrefab = new BonusPrefab();
             bonusList = new List<BonusMatch>();
@@ -45,8 +47,8 @@ namespace ZZBase.Maze
         }
         private void SetRandomBonusProperties(IBonus bonus)
         {
-            bonus.x = (float)(UnityEngine.Random.Range(0, 10) * 6 + 3) + UnityEngine.Random.Range(0f, 2f);
-            bonus.y = (float)(UnityEngine.Random.Range(0, 10) * 6 + 3) + UnityEngine.Random.Range(0f, 2f);
+            bonus.x = (float)(UnityEngine.Random.Range(0, mazeSettings.mazeWidth) * mazeSettings.cellWidth + mazeSettings.cellWidth / 2f);
+            bonus.y = (float)(UnityEngine.Random.Range(0, mazeSettings.mazeHeight) * mazeSettings.cellHeight + mazeSettings.cellHeight / 2f);
             bonus.bonusType = GetRandomBonusType();
             bonus.score = UnityEngine.Random.Range(1, 101);
             bonus.time = UnityEngine.Random.Range(1f, 10f);

@@ -17,9 +17,11 @@ namespace ZZBase.Maze
         private InputController inputController;
         private Timer doubleSpeedTimer;
         private Timer halfSpeedTimer;
+        private MazeSettings mazeSettings;
 
         public PlayerController(IPlayer player, InputController inputController)
         {
+            mazeSettings = new MazeSettings();
             this.player = player;
             this.player.speed = StartPlayerSpeed();
             this.inputController = inputController;
@@ -43,7 +45,7 @@ namespace ZZBase.Maze
 
         private Vector3 StartPlayerPosition()
         {
-            return new Vector3(3f, 0.5f, 3f);
+            return new Vector3(mazeSettings.cellWidth / 2f, 0.5f, mazeSettings.cellHeight / 2f);
         }
 
         public void ShowPlayer()

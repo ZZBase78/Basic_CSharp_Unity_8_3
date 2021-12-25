@@ -14,10 +14,11 @@ namespace ZZBase.Maze
         public int mapHeight { get; private set; }
         public ElementType[,] map { get; private set; }
 
-        public Maze(int cellWidth, int cellHeight)
+        public Maze()
         {
-            width = cellWidth;
-            height = cellHeight;
+            MazeSettings mazeSettings = new MazeSettings();
+            width = mazeSettings.mazeWidth;
+            height = mazeSettings.mazeHeight;
             mapWidth = width * 2 + 1;
             mapHeight = height * 2 + 1;
             map = new ElementType[mapWidth, mapHeight];

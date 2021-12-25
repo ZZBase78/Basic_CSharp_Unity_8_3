@@ -7,10 +7,12 @@ namespace ZZBase.Maze
     public sealed class MazeController
     {
         private Maze maze;
+        private MazeSettings mazeSettings;
 
         public MazeController(Maze maze)
         {
             this.maze = maze;
+            mazeSettings = new MazeSettings();
         }
 
         public void Generate()
@@ -21,7 +23,7 @@ namespace ZZBase.Maze
 
         private Vector3 GetWorldPosition(int x, int y)
         {
-            return new Vector3((float)x * 3f, 0f, (float)y * 3f);
+            return new Vector3((float)x * mazeSettings.cellWidth / 2f, 0f, (float)y * mazeSettings.cellHeight / 2f);
         }
         public void ShowMaze()
         {
@@ -39,19 +41,22 @@ namespace ZZBase.Maze
                     if (maze.map[x, y] == Maze.ElementType.Cell)
                     {
                         element = GameObject.Instantiate(mazePrefabs.floor, position, Quaternion.identity);
+                        element.transform.localScale = new Vector3(mazeSettings.cellWidth, 1f, mazeSettings.cellHeight);
                     }
                     if (maze.map[x, y] == Maze.ElementType.HorizontalWall)
                     {
                         element = GameObject.Instantiate(mazePrefabs.wall, position, Quaternion.identity);
-                        element.transform.rotation = Quaternion.Euler(0, 90, 0);
+                        element.transform.localScale = new Vector3(mazeSettings.cellWidth, mazeSettings.mazeWallHeight, mazeSettings.mazeWallThickness);
                     }
                     if (maze.map[x, y] == Maze.ElementType.VerticalWall)
                     {
                         element = GameObject.Instantiate(mazePrefabs.wall, position, Quaternion.identity);
+                        element.transform.localScale = new Vector3(mazeSettings.mazeWallThickness, mazeSettings.mazeWallHeight, mazeSettings.cellHeight);
                     }
                     if (maze.map[x, y] == Maze.ElementType.WallCross)
                     {
                         element = GameObject.Instantiate(mazePrefabs.wallCross, position, Quaternion.identity);
+                        element.transform.localScale = new Vector3(mazeSettings.mazeWallCrossSize, mazeSettings.mazeWallCrossHeight, mazeSettings.mazeWallCrossSize);
                     }
 
                     element?.transform.SetParent(parent.transform);

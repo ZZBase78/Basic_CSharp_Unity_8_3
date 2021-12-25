@@ -14,6 +14,7 @@ namespace ZZBase.Maze
 
         public float mazeWallThickness { get; }
         public float mazeWallCrossSize { get; }
+        public float mazeWallCrossHeight { get; }
 
         public float mazeWallHeight { get; }
 
@@ -21,11 +22,12 @@ namespace ZZBase.Maze
         {
             cellWidth = 3f;
             cellHeight = 3f;
-            mazeWidth = 20;
-            mazeHeight = 20;
+            mazeWidth = 10;
+            mazeHeight = 10;
             mazeWallThickness = 0.3f;
             mazeWallCrossSize = 0.5f;
-            mazeWallHeight = 2f;
+            mazeWallHeight = 1f;
+            mazeWallCrossHeight = 1.1f;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace ZZBase.Maze
 
         public void Start()
         {
-            Maze maze = new Maze(10, 10);
+            Maze maze = new Maze();
             MazeController mazeController = new MazeController(maze);
             mazeController.Generate();
             mazeController.ShowMaze();
