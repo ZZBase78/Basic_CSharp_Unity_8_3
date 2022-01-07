@@ -7,6 +7,13 @@ namespace ZZBase.Maze
     public sealed class Game
     {
         private UpdateController updateController;
+        private InputData inputData;
+        private InputController inputController;
+        private Player player;
+        private PlayerController playerController;
+        private CameraController cameraController;
+        private BonusController bonusController;
+        private MessageInformerController messageInformerController;
 
         public Game(UpdateController updateController)
         {
@@ -15,39 +22,81 @@ namespace ZZBase.Maze
 
         public void Start()
         {
-            Maze maze = new Maze();
-            MazeController mazeController = new MazeController(maze);
+            InitMaze();
+            InitInputData();
+            InitInputController();
+            InitPlayer();
+            InitPlayerController();
+            InitCameraController();
+            InitBonusController();
+            InitEndGameController();
+            InitMessageInformerController();
+            UpdateControllerRelation();
+        }
+
+        private void InitInputData()
+        {
+            inputData = new InputData();
+        }
+
+        private void InitMaze()
+        {
+            MazeController mazeController = new MazeController(new Maze());
             mazeController.Generate();
             mazeController.ShowMaze();
+        }
 
-            InputController inputController = new InputController();
+        private void UpdateControllerRelation()
+        {
             updateController.Add(inputController);
-
-            Player player = new Player();
-            PlayerController playerController = new PlayerController(player, inputController);
-            playerController.ShowPlayer();
             updateController.Add(playerController);
-
-            CameraData cameraData = new CameraData();
-            CameraController cameraController = new CameraController(cameraData, playerController.GetPlayer());
-            cameraController.ShowCamera();
             updateController.Add(cameraController);
+            updateController.Add(bonusController);
+            updateController.Add(messageInformerController);
+        }
 
+        private void InitInputController()
+        {
+            inputController = new InputController(inputData);
+        }
+
+        private void InitPlayer()
+        {
+            player = new Player();
+        }
+
+        private void InitPlayerController()
+        {
+            playerController = new PlayerController(player, inputData);
+            playerController.ShowPlayer();
+        }
+
+        private void InitCameraController()
+        {
+            cameraController = new CameraController(new CameraData(), playerController.GetPlayer());
+            cameraController.ShowCamera();
+        }
+
+        private void InitBonusController()
+        {
             BonusObservers bonusObservers = new BonusObservers();
             bonusObservers.Add(inputController);
             bonusObservers.Add(playerController);
             bonusObservers.Add(cameraController);
 
-            BonusController bonusController = new BonusController(bonusObservers);
-            updateController.Add(bonusController);
+            bonusController = new BonusController(bonusObservers);
+        }
 
+        private void InitEndGameController()
+        {
             EndGameController endGameController = new EndGameController();
             endGameController.AddEventSource(playerController);
+        }
 
-            MessageInformerController messageInformerController = new MessageInformerController();
+        private void InitMessageInformerController()
+        {
+            messageInformerController = new MessageInformerController();
             messageInformerController.AddMessageSource(bonusController);
-            updateController.Add(messageInformerController);
-
         }
     }
 }

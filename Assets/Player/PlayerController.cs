@@ -18,13 +18,14 @@ namespace ZZBase.Maze
         private Timer doubleSpeedTimer;
         private Timer halfSpeedTimer;
         private MazeSettings mazeSettings;
+        private IInputData inputData;
 
-        public PlayerController(IPlayer player, InputController inputController)
+        public PlayerController(IPlayer player, IInputData inputData)
         {
             mazeSettings = new MazeSettings();
             this.player = player;
             this.player.speed = StartPlayerSpeed();
-            this.inputController = inputController;
+            this.inputData = inputData;
             gameObject = null;
             rigidbody = null;
             visible = false;
@@ -66,7 +67,7 @@ namespace ZZBase.Maze
             halfSpeedTimer.Update(deltaTime);
             if (visible)
             {
-                Vector3 force = inputController.force * player.speed;
+                Vector3 force = inputData.force * player.speed;
                 if (doubleSpeedTimer.On) force *= 2f;
                 if (halfSpeedTimer.On) force /= 2f;
                 rigidbody?.AddForce(force);
