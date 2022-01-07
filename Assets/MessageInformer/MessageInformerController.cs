@@ -17,8 +17,8 @@ namespace ZZBase.Maze
 
         public MessageInformerController()
         {
-            parentCanvasPrefab = Resources.Load<GameObject>("Prefabs/MessageInformer/CanvasInformer");
-            messagePrefab = Resources.Load<GameObject>("Prefabs/MessageInformer/Message");
+            parentCanvasPrefab = Resources.Load<GameObject>(ResourcesPathes.canvasInformerPrefab);
+            messagePrefab = Resources.Load<GameObject>(ResourcesPathes.messagePrefab);
             listSources = new List<IMessageEventSource>();
             listMessages = new List<MessageMatch>();
             parentCanvas = null;

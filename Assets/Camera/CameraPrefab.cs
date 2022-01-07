@@ -10,7 +10,7 @@ namespace ZZBase.Maze
 
         public CameraPrefab()
         {
-            cameraGameObject = Resources.Load<GameObject>("Prefabs/Camera/MainCamera");
+            cameraGameObject = Resources.Load<GameObject>(ResourcesPathes.cameraPrefab);
         }
     }
 }

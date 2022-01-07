@@ -12,9 +12,9 @@ namespace ZZBase.Maze
 
         public MazePrefabs()
         {
-            wall = Resources.Load<GameObject>("Prefabs/Maze/Wall");
-            wallCross = Resources.Load<GameObject>("Prefabs/Maze/WallCross");
-            floor = Resources.Load<GameObject>("Prefabs/Maze/Floor");
+            wall = Resources.Load<GameObject>(ResourcesPathes.wallPrefab);
+            wallCross = Resources.Load<GameObject>(ResourcesPathes.wallCrossPrefab);
+            floor = Resources.Load<GameObject>(ResourcesPathes.floorPrefab);
         }
     }
 }

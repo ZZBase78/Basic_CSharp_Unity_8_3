@@ -10,7 +10,7 @@ namespace ZZBase.Maze
 
         public BonusPrefab()
         {
-            bonus = Resources.Load<GameObject>("Prefabs/Bonus/Bonus");
+            bonus = Resources.Load<GameObject>(ResourcesPathes.bonusPrefab);
         }
     }
 }
