@@ -10,7 +10,7 @@ namespace ZZBase.Maze
 
         public EndGamePrefab()
         {
-            endGame = Resources.Load<GameObject>("Prefabs/EndGame/CanvasEndGame");
+            endGame = Resources.Load<GameObject>(ResourcesPathes.canvasEndGamePrefab);
         }
     }
 }

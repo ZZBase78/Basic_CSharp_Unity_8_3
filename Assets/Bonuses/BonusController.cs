@@ -5,9 +5,12 @@ using UnityEngine;
 
 namespace ZZBase.Maze
 {
-    public sealed class BonusController : IUpdate, IMessageEventSource
+    public sealed class BonusController : IUpdate, IMessageEventSource, IRadarObjectSource
     {
         public event Action<IMessage> actionMessage;
+
+        public event Action<GameObject> eventAddRadarObject;
+        public event Action<GameObject> eventRemoveRadarObject;
 
         private const string playerTag = "Player";
         private const string bonusParentName = "Bonuses";
@@ -26,6 +29,33 @@ namespace ZZBase.Maze
             bonusList = new List<BonusMatch>();
             this.bonusObserver = bonusObserver;
             actionMessage = delegate (IMessage message) { };
+            eventAddRadarObject = delegate (GameObject gameObject) { };
+            eventRemoveRadarObject = delegate (GameObject gameObject) { };
+        }
+
+        public void LoadBonuses()
+        {
+            bonusList.Clear();
+            BonusSaver bonusSaver = new BonusSaver();
+            BonusSaveList bonusSaveList = bonusSaver.Load();
+            foreach (BonusSaveData bonusSaveData in bonusSaveList.list)
+            {
+                Bonus bonus = bonusSaveData.GetBonus();
+                BonusMatch bonusMatch = new BonusMatch(bonus, null);
+                bonusList.Add(bonusMatch);
+                ShowBonus(bonusMatch);
+            }
+        }
+
+        private void SaveBonuses()
+        {
+            BonusSaveList bonusSaveList = new BonusSaveList();
+            foreach(BonusMatch bonusMatch in bonusList)
+            {
+                bonusSaveList.list.Add(new BonusSaveData(bonusMatch.bonus));
+            }
+            BonusSaver bonusSaver = new BonusSaver();
+            bonusSaver.Save(bonusSaveList);
         }
 
         private GameObject GetBonusParent()
@@ -38,7 +68,11 @@ namespace ZZBase.Maze
         
         public void Update(float deltaTime)
         {
-            if (bonusList.Count < maxBonusCount) SpawnNewBonus();
+            if (bonusList.Count < maxBonusCount)
+            {
+                SpawnNewBonus();
+                SaveBonuses();
+            }
         }
         private BonusType GetRandomBonusType()
         {
@@ -132,6 +166,7 @@ namespace ZZBase.Maze
                 bonusBehaviour.onTriggerEnter += BonusMatchOnTriggerEnter;
                 bonusMatch.gameObject = gameObject;
                 bonusMatch.visible = true;
+                eventAddRadarObject(bonusMatch.gameObject);
             }
         }
 
@@ -139,6 +174,7 @@ namespace ZZBase.Maze
         {
             if (bonusMatch.visible)
             {
+                eventRemoveRadarObject(bonusMatch.gameObject);
                 BonusBehaviour bonusBehaviour = bonusMatch.gameObject.GetComponent<BonusBehaviour>();
                 bonusBehaviour.onTriggerEnter -= BonusMatchOnTriggerEnter;
                 GameObject.Destroy(bonusMatch.gameObject);

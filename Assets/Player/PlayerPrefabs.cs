@@ -9,7 +9,7 @@ namespace ZZBase.Maze
         public GameObject player { get; private set; }
         public PlayerPrefabs()
         {
-            player = Resources.Load<GameObject>("Prefabs/Player/Player");
+            player = Resources.Load<GameObject>(ResourcesPathes.playerPrefab);
         }
     }
 }

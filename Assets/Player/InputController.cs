@@ -7,20 +7,22 @@ namespace ZZBase.Maze
     public class InputController : IUpdate, IBonusObserver
     {
 
-        public Vector3 force { get; private set; }
+        //public Vector3 force { get; private set; }
+        private IInputData inputData;
         private Timer timerInverse;
 
-        public InputController()
+        public InputController(IInputData inputData)
         {
-            force = Vector3.zero;
+            this.inputData = inputData;
+            inputData.force = Vector3.zero;
             timerInverse = new Timer();
         }
 
         public void Update(float deltaTime)
         {
             timerInverse.Update(deltaTime);
-            force = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-            if (timerInverse.On) force *= -1f;
+            inputData.force = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+            if (timerInverse.On) inputData.force *= -1f;
         }
 
         public void PlayerTakeBonus(IBonus bonus)
