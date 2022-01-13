@@ -15,5 +15,11 @@ namespace ZZBase.Maze
         public const string canvasInformerPrefab = "Prefabs/MessageInformer/CanvasInformer";
         public const string messagePrefab = "Prefabs/MessageInformer/Message";
         public const string playerPrefab = "Prefabs/Player/Player";
+        public const string minimapCamera = "Minimap/MinimapCamera";
+        public const string minimapCanvas = "Minimap/MinimapCanvas";
+        public const string minimapTexture = "Minimap/MinimapTexture";
+        public const string radarCanvas = "Radar/RadarCanvas";
+        public const string radarIcon = "Radar/RadarObject";
+        public const string photoCanvas = "Photo/PhotoCanvas";
     }
 }

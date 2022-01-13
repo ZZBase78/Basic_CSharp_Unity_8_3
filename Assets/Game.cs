@@ -14,6 +14,9 @@ namespace ZZBase.Maze
         private CameraController cameraController;
         private BonusController bonusController;
         private MessageInformerController messageInformerController;
+        private MinimapController minimapController;
+        private RadarController radarController;
+        private PhotoController photoController;
 
         public Game(UpdateController updateController)
         {
@@ -31,7 +34,32 @@ namespace ZZBase.Maze
             InitBonusController();
             InitEndGameController();
             InitMessageInformerController();
+            InitMinimapController();
+            InitRadarController();
+            LoadBonuses();
+            InitPhotoController();
             UpdateControllerRelation();
+        }
+
+        private void InitPhotoController()
+        {
+            photoController = new PhotoController();
+        }
+
+        private void LoadBonuses()
+        {
+            bonusController.LoadBonuses();
+        }
+
+        private void InitRadarController()
+        {
+            radarController = new RadarController(playerController.GetPlayer());
+            radarController.AddRadarObjectSource(bonusController);
+        }
+
+        private void InitMinimapController()
+        {
+            minimapController = new MinimapController(playerController.GetPlayer());
         }
 
         private void InitInputData()
@@ -53,6 +81,9 @@ namespace ZZBase.Maze
             updateController.Add(cameraController);
             updateController.Add(bonusController);
             updateController.Add(messageInformerController);
+            updateController.Add(minimapController);
+            updateController.Add(radarController);
+            updateController.Add(photoController);
         }
 
         private void InitInputController()
