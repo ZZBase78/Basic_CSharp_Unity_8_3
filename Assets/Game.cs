@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace ZZBase.Maze
         private MinimapController minimapController;
         private RadarController radarController;
         private PhotoController photoController;
+        private ProfileController profileController;
 
         public Game(UpdateController updateController)
         {
@@ -29,6 +31,7 @@ namespace ZZBase.Maze
             InitInputData();
             InitInputController();
             InitPlayer();
+            InitProfileController();
             InitPlayerController();
             InitCameraController();
             InitBonusController();
@@ -39,6 +42,15 @@ namespace ZZBase.Maze
             LoadBonuses();
             InitPhotoController();
             UpdateControllerRelation();
+        }
+
+        private void InitProfileController()
+        {
+            SelectedPlayerProfileBehaviour selectedPlayerProfileBehaviour = GameObject.FindObjectOfType<SelectedPlayerProfileBehaviour>();
+            if (selectedPlayerProfileBehaviour == null) throw new Exception("Player profile not loaded");
+            profileController = new ProfileController(selectedPlayerProfileBehaviour.playerProfile, player);
+            profileController.Load();
+            GameObject.Destroy(selectedPlayerProfileBehaviour.gameObject);
         }
 
         private void InitPhotoController()
@@ -114,6 +126,7 @@ namespace ZZBase.Maze
             bonusObservers.Add(inputController);
             bonusObservers.Add(playerController);
             bonusObservers.Add(cameraController);
+            bonusObservers.Add(profileController);
 
             bonusController = new BonusController(bonusObservers);
         }
