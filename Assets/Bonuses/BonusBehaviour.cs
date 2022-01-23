@@ -7,13 +7,14 @@ namespace ZZBase.Maze
 {
     public class BonusBehaviour : MonoBehaviour
     {
-        public event Action<BonusMatch, Collider> onTriggerEnter = delegate (BonusMatch bonusMatch, Collider collider) { };
+        public event Action<(BonusMatch, Collider)> onTriggerEnter = delegate ((BonusMatch bonusMatch, Collider collider) tuple) { };
 
         public BonusMatch bonusMatch;
 
         private void OnTriggerEnter(Collider other)
         {
-            onTriggerEnter(bonusMatch, other);
+            (BonusMatch bonusMatch, Collider collider) tuple = (bonusMatch, other);
+            onTriggerEnter(tuple);
         }
     }
 }
