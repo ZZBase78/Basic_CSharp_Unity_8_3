@@ -9,8 +9,8 @@ namespace ZZBase.Maze
     {
         public static string CryptoXOR(string text, int key = 115)
         {
-            var result = String.Empty;
-            foreach (var simbol in text)
+            string result = String.Empty;
+            foreach (char simbol in text)
             {
                 result += (char)(simbol ^ key);
             }
