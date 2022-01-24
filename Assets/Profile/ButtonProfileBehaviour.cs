@@ -30,7 +30,9 @@ namespace ZZBase.Maze
             {
                 throw new Exception("GameObject have no Text component");
             }
-            text.text = playerProfile.name;
+            ProfileController profileController = new ProfileController(playerProfile);
+            profileController.Load();
+            text.text = playerProfile.name + $" (Очков: {profileController.player.score})";
         }
 
         public void ButtonPressed()

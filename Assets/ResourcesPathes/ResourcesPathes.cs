@@ -26,5 +26,6 @@ namespace ZZBase.Maze
         public const string newProfile = "Prefabs/NewProfile/NewProfile";
         public const string selectProfile = "Prefabs/SelectProfile/SelectProfile";
         public const string selectProfileButton = "Prefabs/SelectProfile/SelectProfileButton";
+        public const string pauseMenu = "Prefabs/PauseMenu/Canvas";
     }
 }

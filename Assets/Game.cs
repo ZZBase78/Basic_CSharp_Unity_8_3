@@ -19,6 +19,7 @@ namespace ZZBase.Maze
         private RadarController radarController;
         private PhotoController photoController;
         private ProfileController profileController;
+        private PauseMenuController pauseMenuController;
 
         public Game(UpdateController updateController)
         {
@@ -41,7 +42,13 @@ namespace ZZBase.Maze
             InitRadarController();
             LoadBonuses();
             InitPhotoController();
+            InitPauseMenuController();
             UpdateControllerRelation();
+        }
+
+        private void InitPauseMenuController()
+        {
+            pauseMenuController = new PauseMenuController();
         }
 
         private void InitProfileController()
@@ -96,6 +103,7 @@ namespace ZZBase.Maze
             updateController.Add(minimapController);
             updateController.Add(radarController);
             updateController.Add(photoController);
+            updateController.Add(pauseMenuController);
         }
 
         private void InitInputController()

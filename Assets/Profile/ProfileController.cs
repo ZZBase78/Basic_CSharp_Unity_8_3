@@ -19,7 +19,7 @@ namespace ZZBase.Maze
         public ProfileController(PlayerProfile playerProfile)
         {
             this.playerProfile = playerProfile;
-            this.player = null;
+            this.player = new Player();
         }
 
         public void Load()
