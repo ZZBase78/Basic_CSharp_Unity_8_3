@@ -21,5 +21,11 @@ namespace ZZBase.Maze
         public const string radarCanvas = "Radar/RadarCanvas";
         public const string radarIcon = "Radar/RadarObject";
         public const string photoCanvas = "Photo/PhotoCanvas";
+        public const string mainCanvas = "Prefabs/MainCanvas/Canvas";
+        public const string mainMenu = "Prefabs/MainMenu/MainMenu";
+        public const string newProfile = "Prefabs/NewProfile/NewProfile";
+        public const string selectProfile = "Prefabs/SelectProfile/SelectProfile";
+        public const string selectProfileButton = "Prefabs/SelectProfile/SelectProfileButton";
+        public const string pauseMenu = "Prefabs/PauseMenu/Canvas";
     }
 }

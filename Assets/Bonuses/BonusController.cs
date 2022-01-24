@@ -124,14 +124,14 @@ namespace ZZBase.Maze
             }
         }
 
-        private void BonusMatchOnTriggerEnter(BonusMatch bonusMatch, Collider collider)
+        private void BonusMatchOnTriggerEnter((BonusMatch bonusMatch, Collider collider) tuple)
         {
-            if (collider.CompareTag(playerTag))
+            if (tuple.collider.CompareTag(playerTag))
             {
-                actionMessage(new Message(GetBonusInfo(bonusMatch.bonus)));
-                HideBonus(bonusMatch);
-                bonusList.Remove(bonusMatch);
-                bonusObserver.PlayerTakeBonus(bonusMatch.bonus);
+                actionMessage(new Message(GetBonusInfo(tuple.bonusMatch.bonus)));
+                HideBonus(tuple.bonusMatch);
+                bonusList.Remove(tuple.bonusMatch);
+                bonusObserver.PlayerTakeBonus(tuple.bonusMatch.bonus);
             }
         }
 

@@ -79,7 +79,7 @@ namespace ZZBase.Maze
             if (bonus.bonusType == BonusType.Score)
             {
                 player.score += bonus.score;
-                if (player.score >= 100) actionEndGame();
+                if (player.score >= 1000) actionEndGame();
             }
             else if (bonus.bonusType == BonusType.DoubleSpeed)
             {
